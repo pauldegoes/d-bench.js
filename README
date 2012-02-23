@@ -1,0 +1,64 @@
+/* 
+  Copyright (c) <2011> <Paul M. De Goes : pauldegoes@hotmail.com>
+
+  Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php 
+*/
+
+
+DESCRIPTION:
+  
+  d-bench.js is a simple javascript benchmarking tool
+
+
+SETUP:
+
+  * Download a copy of the d-bench.js source and save it in a directory within your project package.  
+  * include a reference to the d-bench.js source in your project's html page
+  
+
+USAGE:
+
+  Basic usage: 
+  
+    Instantiation:
+      Instantiate a DBench instance
+      
+      Example:
+        var bench = DBench(optionalName);
+        
+      Notes: 
+        You may provide an optional benchmark name to identify a specific instance
+        
+    Starting:
+      The benchmark is started as soon as you instantiate a DBench object
+        
+    Sub-Benchmarking
+      If you need a more in-depth breakdown, you can add marks within your JS that will be included in the report
+      
+      Example:
+        bench.mark("generating html", function() { executing code });
+        
+    Stoping:
+      Call report on the DBench instance
+
+      Example:
+        bench.report() =>  {
+          name  : [optional name]
+          total : {
+            json      : [json total],
+            toString() => [stringified json total]
+          },
+          marks : {
+            json      : [array of benchmark json stats],
+            toString() => [array of stringified benchmark json stats]
+          }
+        }
+        
+    Complete Example:
+      var bench = DBench();
+      bench.mark("initial loop", function() { nTimes(1000, function(times) { console.log("running " + times)}) })
+
+      bench.mark("second loop", function() { nTimes(1000, function(times) { console.log("running " + times)}) });
+
+      bench.mark("third loop", function() { nTimes(1000, function(times) { console.log("running " + times)}) });
+      report = bench.report()
